@@ -75,31 +75,45 @@ Put the analogy near the title, then use precise technical labels in the diagram
 Do not force an analogy onto components where it would distort ownership,
 durability, ordering, or failure behavior.
 
+## Adapt to the host without weakening the result
+
+Use the richest visual surface the current host provides, but keep the SVG as the
+portable source of truth.
+
+- If the host provides a visualization, artifact, canvas, or browser-preview
+  capability, read its instructions before creating the visual and use it for the
+  preview.
+- Otherwise create a self-contained `.svg` file in an authorized workspace
+  location. Add a minimal HTML preview only when it helps inspection; do not move
+  substantive explanation into the wrapper.
+- Never make completion depend on a Codex-, Claude-, or Gemini-specific tool. If a
+  native preview is unavailable, return the SVG path and state which visual checks
+  could not be performed.
+
 ## Make the SVG carry the page
 
-When the visualization capability is available, read and follow its instructions
-before creating or updating the visual. For an in-conversation result, create an
-HTML fragment whose visible content is SVG-first.
-
-- Put the architecture map, legend, strengths, risks, and prioritized next moves
-  inside SVG. Avoid a diagram followed by a long HTML essay.
-- Use a desktop composition designed at 736px and a separately composed mobile
-  version around 360px. Do not shrink a desktop viewBox until labels become tiny.
+- Put the title and analogy, architecture map, evidence legend, strengths, risks,
+  and prioritized next moves inside SVG. Outside prose should be no more than a
+  short handoff or conclusion.
+- Use native SVG shapes, connectors, labels, badges, and grouped regions rather
+  than embedding a screenshot or substituting a long Markdown explanation. The
+  architecture flow should be the visually dominant region.
+- When the host supports responsive inline output, compose a desktop view around
+  736px and a separate mobile view around 360px. For standalone output, use a
+  responsive `viewBox`; create a mobile companion SVG when one composition cannot
+  remain readable at both widths.
 - Keep visible text at least 11 screen pixels. Wrap text with explicit `tspan`
   lines and reserve room for the longest label.
-- Use theme variables for every color. Pair color with labels, line styles, and
-  shapes so meaning never depends on color alone.
-- Give each SVG a concise `title` and `desc`. Keep IDs unique across desktop and
-  mobile compositions.
+- Use host theme tokens when available. For standalone output, define a
+  self-contained light/dark palette inside the SVG. Pair color with labels, line
+  styles, and shapes so meaning never depends on color alone.
+- Give each SVG a concise `title` and `desc`. Keep IDs unique across multiple
+  compositions.
 - Prefer direct labels over legends. Use a small legend only for durable semantic
   categories such as source, transport, cache, derived view, and missing desired
   state.
 - Do not invent maturity scores. Report concrete evidence, consequences, and
   next actions.
-
-If the user explicitly requests a standalone `.svg`, create a self-contained SVG
-file in an authorized durable location and also provide an in-conversation preview
-when possible.
 
 ## Findings and prioritization
 
@@ -118,10 +132,12 @@ failed high-availability cluster, but it must still be labeled as single-node.
 
 Before responding:
 
-- render the fragment and inspect it at desktop and mobile widths;
-- inspect both light and dark themes;
+- render the available artifact and inspect it at desktop and mobile widths;
+- inspect both light and dark themes when the renderer supports them; otherwise
+  check both palettes for contrast;
 - fix clipped labels, crossing arrows that change meaning, unreadably small text,
   low contrast, duplicate IDs, and unsupported external resources;
-- confirm the fragment is under 1 MB and contains no document wrapper;
+- validate standalone SVG as XML and keep it free of external runtime dependencies;
+- apply any size or wrapper limits required by the current host's artifact surface;
 - re-check the top findings against source evidence;
-- include the visualization reference in the same turn.
+- include the visualization or a link to the generated SVG in the same turn.
