@@ -1,0 +1,44 @@
+{
+  "claims": [
+    {
+      "subject": "web process",
+      "state": "declared",
+      "locators": [
+        "fixture/deploy.toml:2",
+        "fixture/app.py:9"
+      ]
+    },
+    {
+      "subject": "health response",
+      "state": "observed",
+      "locators": [
+        "fixture/runtime-observation.txt:1"
+      ]
+    },
+    {
+      "subject": "background worker",
+      "state": "intended",
+      "locators": [
+        "fixture/DESIGN.md:3"
+      ]
+    },
+    {
+      "subject": "durable queue",
+      "state": "intended",
+      "locators": [
+        "fixture/DESIGN.md:3"
+      ]
+    }
+  ],
+  "must_not_claim": [
+    "The background worker is deployed or observed.",
+    "The durable queue is deployed or observed.",
+    "A cache, database, scheduler, or monitoring system exists."
+  ],
+  "presentation_requirements": [
+    "Every load-bearing claim has a visible evidence ID.",
+    "The SVG contains an evidence index with state and file:line locators.",
+    "Every evidence ID replays to a supporting locator.",
+    "Unsupported details are labeled inference or unverified."
+  ]
+}

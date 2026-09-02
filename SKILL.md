@@ -36,9 +36,18 @@ assumptions.
 - Check adjacent code only to confirm an architectural edge or missing runtime
   role; do not expand into an unrelated full-repository review.
 
-Keep an internal evidence map from every important visual claim to a file and
-line or parsed resource. Show citations only when the user requests them or when
-the claim would otherwise be hard to verify.
+Build a claim ledger before drawing. Give every load-bearing claim a compact
+evidence ID such as `[E1]` and record its state (`declared`, `intended`,
+`observed`, `inference`, or `unverified`) plus a repository-relative `file:line`
+or parsed-resource locator. Load-bearing claims include runtime roles, public
+paths, sources of truth, durability, capacity, top risks, and next moves.
+
+Make the evidence IDs visible beside the corresponding claims in the SVG. Add a
+compact evidence index inside the SVG that maps each ID to its state and locator.
+Do not expose secret values, private paths, or sensitive identifiers. When no
+source locator exists, label the claim as an inference or unverified instead of
+presenting it as fact. Design documents can support intended state, but never
+observed runtime state.
 
 ## Archify the system
 
@@ -139,5 +148,11 @@ Before responding:
   low contrast, duplicate IDs, and unsupported external resources;
 - validate standalone SVG as XML and keep it free of external runtime dependencies;
 - apply any size or wrapper limits required by the current host's artifact surface;
-- re-check the top findings against source evidence;
+- replay every rendered evidence ID against its source after the final render;
+- fail or qualify claims whose locators are missing, stale, or do not support the
+  displayed wording;
+- require runtime evidence for every `observed` claim; otherwise downgrade it to
+  `declared`, `intended`, or `unverified` as appropriate;
+- re-check that every top risk and next move points to evidence or is explicitly
+  labeled as an inference;
 - include the visualization or a link to the generated SVG in the same turn.
