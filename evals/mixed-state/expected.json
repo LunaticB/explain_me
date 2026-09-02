@@ -10,9 +10,10 @@
     },
     {
       "subject": "health response",
-      "state": "observed",
+      "state": "recorded",
+      "observation_time": "2026-09-01T00:00:00Z",
       "locators": [
-        "fixture/runtime-observation.txt:1"
+        "fixture/recorded-runtime.txt:1"
       ]
     },
     {
@@ -31,6 +32,8 @@
     }
   ],
   "must_not_claim": [
+    "The app or health endpoint was observed live during this analysis.",
+    "The recorded health response establishes current runtime state.",
     "The background worker is deployed or observed.",
     "The durable queue is deployed or observed.",
     "A cache, database, scheduler, or monitoring system exists."
@@ -39,6 +42,8 @@
     "Every load-bearing claim has a visible evidence ID.",
     "The SVG contains an evidence index with state and file:line locators.",
     "Every evidence ID replays to a supporting locator.",
+    "Recorded runtime evidence shows its observation time and a freshness qualification.",
+    "The SVG says live runtime was not inspected.",
     "Unsupported details are labeled inference or unverified."
   ]
 }

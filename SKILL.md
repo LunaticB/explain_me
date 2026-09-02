@@ -30,24 +30,30 @@ assumptions.
 - Calculate exact counts and capacity when they materially explain the system.
   For Kubernetes, include replicas when totaling pods and resource requests or
   limits.
-- Compare three states explicitly: **declared** in deployable configuration,
-  **intended** in comments or design docs, and **observed** at runtime. Never show
-  intended behavior as deployed. If runtime inspection is unavailable, say so.
+- Compare evidence states explicitly: **declared** in deployable configuration,
+  **intended** in comments or design docs, **recorded** in historical runtime
+  artifacts, and **observed** through live inspection during the current analysis.
+  Never show intended behavior as deployed. If live runtime inspection is
+  unavailable, say so.
+- Treat committed logs, screenshots, status exports, and prior command output as
+  recorded evidence; show their observation time and qualify their freshness. A
+  repository artifact cannot by itself establish current runtime state.
 - Check adjacent code only to confirm an architectural edge or missing runtime
   role; do not expand into an unrelated full-repository review.
 
 Build a claim ledger before drawing. Give every load-bearing claim a compact
 evidence ID such as `[E1]` and record its state (`declared`, `intended`,
-`observed`, `inference`, or `unverified`) plus a repository-relative `file:line`
-or parsed-resource locator. Load-bearing claims include runtime roles, public
-paths, sources of truth, durability, capacity, top risks, and next moves.
+`recorded`, `observed`, `inference`, or `unverified`) plus a repository-relative
+`file:line` or parsed-resource locator. Load-bearing claims include runtime roles,
+public paths, sources of truth, durability, capacity, top risks, and next moves.
 
 Make the evidence IDs visible beside the corresponding claims in the SVG. Add a
 compact evidence index inside the SVG that maps each ID to its state and locator.
 Do not expose secret values, private paths, or sensitive identifiers. When no
 source locator exists, label the claim as an inference or unverified instead of
 presenting it as fact. Design documents can support intended state, but never
-observed runtime state.
+recorded or observed runtime state. Historical runtime artifacts can support
+recorded state, but never observed state.
 
 ## Archify the system
 
@@ -151,8 +157,11 @@ Before responding:
 - replay every rendered evidence ID against its source after the final render;
 - fail or qualify claims whose locators are missing, stale, or do not support the
   displayed wording;
-- require runtime evidence for every `observed` claim; otherwise downgrade it to
-  `declared`, `intended`, or `unverified` as appropriate;
+- require live runtime evidence gathered during the current analysis for every
+  `observed` claim; otherwise downgrade it to `recorded`, `declared`, `intended`,
+  or `unverified` as appropriate;
+- confirm that every `recorded` claim shows its observation time and does not
+  imply current runtime state;
 - re-check that every top risk and next move points to evidence or is explicitly
   labeled as an inference;
 - include the visualization or a link to the generated SVG in the same turn.

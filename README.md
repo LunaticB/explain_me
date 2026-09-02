@@ -50,7 +50,8 @@ editing the skill. In Claude Code, `/skills` lists the available skills.
 ## Maintainer evaluation
 
 `evals/mixed-state/fixture/` is a small fixed-ground-truth repository containing
-a declared web process, an observed health response, and a worker that exists
-only in design intent. Run the skill against the fixture without exposing
-`expected.json`, then compare the SVG with that file. The check catches the most
-important failure mode: turning intended architecture into observed reality.
+a declared web process, a recorded historical health response, and a worker that
+exists only in design intent. Run the skill against the fixture without starting
+the app or exposing `expected.json`, then compare the SVG with that file. The
+check catches two important failure modes: turning intended architecture into
+deployed reality and treating a committed runtime artifact as a live observation.
