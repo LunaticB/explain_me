@@ -41,17 +41,7 @@ editing the skill. In Claude Code, `/skills` lists the available skills.
 
 - repository evidence before architecture claims;
 - declared, intended, and observed state kept separate;
-- visible evidence IDs and a replayable source index for load-bearing claims;
 - a layered context, workload, flow, data, and operations map;
 - SVG as the main explanation rather than decoration;
 - concrete evidence-to-consequence risks and three ordered next moves;
 - a standalone SVG fallback when the host has no native visual artifact surface.
-
-## Maintainer evaluation
-
-`evals/mixed-state/fixture/` is a small fixed-ground-truth repository containing
-a declared web process, a recorded historical health response, and a worker that
-exists only in design intent. Run the skill against the fixture without starting
-the app or exposing `expected.json`, then compare the SVG with that file. The
-check catches two important failure modes: turning intended architecture into
-deployed reality and treating a committed runtime artifact as a live observation.
